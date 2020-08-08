@@ -15,7 +15,7 @@ import ru.chatbot.utils.MessageSender;
 public class Controller {
 
     @Autowired
-    MessageSender messageSender;
+    private MessageSender messageSender;
 
     @Value("${vk.group_id}")
     private Integer groupId;

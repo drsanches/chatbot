@@ -15,6 +15,17 @@ public class ObjectDTO {
 
     public ObjectDTO() {}
 
+    public ObjectDTO(Integer id, Integer date, Integer out, Integer user_id, Integer read_state, String title, String body, List<Integer> owner_ids) {
+        this.id = id;
+        this.date = date;
+        this.out = out;
+        this.user_id = user_id;
+        this.read_state = read_state;
+        this.title = title;
+        this.body = body;
+        this.owner_ids = owner_ids;
+    }
+
     public Integer getId() {
         return id;
     }
