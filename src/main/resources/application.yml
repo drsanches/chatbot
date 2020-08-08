@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+vk:
+  group_id: 123456789
+  auth:
+    confirm_code: confirmcode
+    access_token: accesstoken
+  api:
+    send_message_url: https://api.vk.com/method/messages.send
+    version: "5.50"
+
+logging:
+  level:
+    root: WARN
+    org.springframework.web: WARN
+    ru.chatbot: INFO
