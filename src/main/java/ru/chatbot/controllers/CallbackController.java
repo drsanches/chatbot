@@ -26,7 +26,7 @@ public class CallbackController {
     @Value("${vk.auth.confirm_code}")
     private String confirmCode;
 
-    private static final Logger LOG = LoggerFactory.getLogger(CallbackController.class);
+    private Logger log = LoggerFactory.getLogger(CallbackController.class);
 
     /**
      * Endpoint for VK Callback API
@@ -35,15 +35,12 @@ public class CallbackController {
      */
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
     public String callback(@RequestBody RequestBodyDTO requestBodyDTO) {
-        LOG.info("Request received: {}", requestBodyDTO);
-        if (requestBodyDTO.getType() != null) {
+        log.info("Request received: {}", requestBodyDTO);
+        if (requestBodyDTO.getType() != null && requestBodyDTO.getGroupId() != null && requestBodyDTO.getGroupId().equals(groupId)) {
             switch (requestBodyDTO.getType()) {
                 case "confirmation":
-                    if (requestBodyDTO.getGroupId() != null && requestBodyDTO.getGroupId().equals(groupId)) {
-                        LOG.info("Response with confirmation code was sent");
-                        return confirmCode;
-                    }
-                    break;
+                    log.info("Response with confirmation code was sent");
+                    return confirmCode;
                 case "message_new":
                     Integer userId = requestBodyDTO.getObject().getUserId();
                     String message = requestBodyDTO.getObject().getBody();
@@ -55,7 +52,7 @@ public class CallbackController {
                     break;
             }
         }
-        LOG.warn("The request '{}' was not processed", requestBodyDTO);
+        log.warn("The request '{}' was not processed", requestBodyDTO);
         return "ok";
     }
 }
