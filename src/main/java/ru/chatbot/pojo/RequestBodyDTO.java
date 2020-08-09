@@ -1,19 +1,30 @@
 package ru.chatbot.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RequestBodyDTO {
 
+    @JsonProperty("type")
     private String type;
+
+    @JsonProperty("object")
     private ObjectDTO object;
-    private Integer group_id;
-    private String event_id;
+
+    @JsonProperty("group_id")
+    private Integer groupId;
+
+    @JsonProperty("event_id")
+    private String eventId;
 
     public RequestBodyDTO() {}
 
-    public RequestBodyDTO(String type, ObjectDTO object, Integer group_id, String event_id) {
+    public RequestBodyDTO(String type, ObjectDTO object, Integer groupId, String eventId) {
         this.type = type;
         this.object = object;
-        this.group_id = group_id;
-        this.event_id = event_id;
+        this.groupId = groupId;
+        this.eventId = eventId;
     }
 
     public String getType() {
@@ -24,21 +35,21 @@ public class RequestBodyDTO {
         return object;
     }
 
-    public Integer getGroup_id() {
-        return group_id;
+    public Integer getGroupId() {
+        return groupId;
     }
 
-    public String getEvent_id() {
-        return event_id;
+    public String getEventId() {
+        return eventId;
     }
 
     @Override
     public String toString() {
-        return "RequestBodyDTO{" +
+        return "{" +
                 "type='" + type + '\'' +
                 ", object=" + object +
-                ", group_id=" + group_id +
-                ", event_id='" + event_id + '\'' +
+                ", group_id=" + groupId +
+                ", event_id='" + eventId + '\'' +
                 '}';
     }
 }

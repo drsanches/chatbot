@@ -31,15 +31,15 @@ public class Controller {
         if (requestBodyDTO.getType() != null) {
             switch (requestBodyDTO.getType()) {
                 case "confirmation":
-                    if (requestBodyDTO.getGroup_id() != null && requestBodyDTO.getGroup_id().equals(groupId)) {
+                    if (requestBodyDTO.getGroupId() != null && requestBodyDTO.getGroupId().equals(groupId)) {
                         LOG.info("Response with confirmation code was sent");
                         return confirmCode;
                     }
                     break;
                 case "message_new":
-                    Integer userId = requestBodyDTO.getObject().getUser_id();
+                    Integer userId = requestBodyDTO.getObject().getUserId();
                     String message = requestBodyDTO.getObject().getBody();
-                    String eventId = requestBodyDTO.getEvent_id();
+                    String eventId = requestBodyDTO.getEventId();
                     if (userId != null && message != null) {
                         messageSender.sendMessage(userId, "Вы сказали: " + message, eventId);
                         return "ok";

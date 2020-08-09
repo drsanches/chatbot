@@ -1,29 +1,47 @@
 package ru.chatbot.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ObjectDTO {
 
+    @JsonProperty("id")
     private Integer id;
+
+    @JsonProperty("date")
     private Integer date;
+
+    @JsonProperty("out")
     private Integer out;
-    private Integer user_id;
-    private Integer read_state;
+
+    @JsonProperty("user_id")
+    private Integer userId;
+
+    @JsonProperty("read_state")
+    private Integer readState;
+
+    @JsonProperty("title")
     private String title;
+
+    @JsonProperty("body")
     private String body;
-    private List<Integer> owner_ids;
+
+    @JsonProperty("owner_ids")
+    private List<Integer> ownerIds;
 
     public ObjectDTO() {}
 
-    public ObjectDTO(Integer id, Integer date, Integer out, Integer user_id, Integer read_state, String title, String body, List<Integer> owner_ids) {
+    public ObjectDTO(Integer id, Integer date, Integer out, Integer userId, Integer readState, String title, String body, List<Integer> ownerIds) {
         this.id = id;
         this.date = date;
         this.out = out;
-        this.user_id = user_id;
-        this.read_state = read_state;
+        this.userId = userId;
+        this.readState = readState;
         this.title = title;
         this.body = body;
-        this.owner_ids = owner_ids;
+        this.ownerIds = ownerIds;
     }
 
     public Integer getId() {
@@ -38,12 +56,12 @@ public class ObjectDTO {
         return out;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public Integer getRead_state() {
-        return read_state;
+    public Integer getReadState() {
+        return readState;
     }
 
     public String getTitle() {
@@ -54,21 +72,21 @@ public class ObjectDTO {
         return body;
     }
 
-    public List<Integer> getOwner_ids() {
-        return owner_ids;
+    public List<Integer> getOwnerIds() {
+        return ownerIds;
     }
 
     @Override
     public String toString() {
-        return "ObjectDTO{" +
+        return "{" +
                 "id=" + id +
                 ", date=" + date +
                 ", out=" + out +
-                ", user_id=" + user_id +
-                ", read_state=" + read_state +
+                ", user_id=" + userId +
+                ", read_state=" + readState +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
-                ", owner_ids=" + owner_ids +
+                ", owner_ids=" + ownerIds +
                 '}';
     }
 }
