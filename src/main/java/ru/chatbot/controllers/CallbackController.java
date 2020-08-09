@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.chatbot.pojo.RequestBodyDTO;
 import ru.chatbot.utils.MessageSender;
 
+/**
+ * Controller for VK Callback API
+ */
 @RestController
-public class Controller {
+public class CallbackController {
 
     @Autowired
     private MessageSender messageSender;
@@ -23,8 +26,13 @@ public class Controller {
     @Value("${vk.auth.confirm_code}")
     private String confirmCode;
 
-    private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CallbackController.class);
 
+    /**
+     * Endpoint for VK Callback API
+     * @param requestBodyDTO json body of request
+     * @return status code 200 and string "ok"
+     */
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
     public String callback(@RequestBody RequestBodyDTO requestBodyDTO) {
         LOG.info("Request received: {}", requestBodyDTO);
