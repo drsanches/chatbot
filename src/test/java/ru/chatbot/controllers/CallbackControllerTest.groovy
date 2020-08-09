@@ -14,6 +14,7 @@ class CallbackControllerTest extends Specification {
         callbackController.groupId = new Random().nextInt()
         callbackController.confirmCode = UUID.randomUUID().toString()
         callbackController.log = Mock(Logger)
+        callbackController.messageSender = Mock(MessageSender)
 
         and: "request"
         String type = "confirmation"
@@ -24,6 +25,9 @@ class CallbackControllerTest extends Specification {
 
         then: "it logs request body"
         1 * callbackController.log.info("Request received: {}", requestBodyDTO)
+
+        and: "doesn't send message to the user"
+        0 * callbackController.messageSender.sendMessage(*_)
 
         and: "logs message about confirmation code response"
         1 * callbackController.log.info("Response with confirmation code was sent")
@@ -49,7 +53,7 @@ class CallbackControllerTest extends Specification {
         RequestBodyDTO requestBodyDTO = new RequestBodyDTO(type, objectDTO, callbackController.groupId, eventId)
 
         when: "callback is called"
-        String request = callbackController.callback(requestBodyDTO)
+        String response = callbackController.callback(requestBodyDTO)
 
         then: "it logs request body"
         1 * callbackController.log.info("Request received: {}", requestBodyDTO)
@@ -58,7 +62,7 @@ class CallbackControllerTest extends Specification {
         1 * callbackController.messageSender.sendMessage(userId, "Вы сказали: " + body, eventId)
 
         and: "returns ok"
-        request == "ok"
+        response == "ok"
     }
 
     def "check that callback do nothing for incorrect request"() {
@@ -74,7 +78,7 @@ class CallbackControllerTest extends Specification {
         RequestBodyDTO requestBodyDTO = new RequestBodyDTO(type, objectDTO, groupId, null)
 
         when: "callback is called"
-        String request = callbackController.callback(requestBodyDTO)
+        String response = callbackController.callback(requestBodyDTO)
 
         then: "it logs request body"
         1 * callbackController.log.info("Request received: {}", requestBodyDTO)
@@ -86,7 +90,7 @@ class CallbackControllerTest extends Specification {
         1 * callbackController.log.warn("The request '{}' was not processed", requestBodyDTO)
 
         and: "returns ok"
-        request == "ok"
+        response == "ok"
 
         where:
         type                          |  groupId  |  userId                  |  body
